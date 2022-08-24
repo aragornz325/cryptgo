@@ -1,0 +1,161 @@
+.pokerModal {
+    position: fixed;
+    z-index: 100;
+    height: 50%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+
+    &__box {
+        background-color: #051441;
+        height: 70%;
+        width: 90%;
+        transform: translateY(-10%);
+        border: 5px double #fff;
+        border-radius: 15px;
+        box-shadow: 0px 0px 30px teal;
+
+        &__close {
+            width: 100%;
+            align-self: flex-end;
+            text-align: end;
+            position: absolute;
+
+            & svg {
+                cursor: pointer;
+                color: #fff;
+                font-size: 3rem;
+                padding: 10px;
+            }
+        }
+
+        &__title {
+            height: 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+                color: #fff;
+            }
+        }
+
+        &__range {
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            
+            &__check {
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+                color: #fff;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 19px;
+                background-color: #F474E1;
+                border: 3px solid #FE17FF;
+                transition: 1s;
+
+                &:hover{ 
+                    box-shadow: 0px 2px 20px #F474E1;
+                }
+            }
+
+            &__slider {
+                background-color: #0B1E3E;
+                border:  1px solid #fff;
+                display: flex;
+                width: 70%;
+                border-radius: 20px; 
+                align-items: center;
+                justify-content: center;
+                gap: 20px; 
+                
+                &__money { 
+                    width: 30%;
+                    text-align: center;
+                }
+
+                &-button {
+                    border-radius: 50%;
+                    cursor: pointer;
+                    width: 35px;
+                    height: 35px;
+                    background-color: rgba(254, 23, 255, 0.5);
+                    border: 2px solid #F474E1;
+                    color: #fff;
+                }
+            }
+        }
+
+        &__money {
+            height: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            
+            & img {
+                transition: 1s;
+            }
+            
+            @media (max-width: 1500px) {
+                & img {
+                    height: 80px;
+                }
+            }
+            
+            & :nth-child(1):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px lightBlue);
+            }
+            
+            & :nth-child(2):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px violet);
+            } 
+            & :nth-child(3):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px pink);
+            }  
+            & :nth-child(4):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px purple);
+            } 
+            & :nth-child(5):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px red);
+            } 
+            & :nth-child(6):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px orange);
+            } 
+            & :nth-child(7):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px yellow);
+            } 
+            & :nth-child(8):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px green);
+            } 
+            & :nth-child(9):hover {
+                transform: scale(1.2);
+                filter: drop-shadow(0px 0px 20px lightBlue);
+            } 
+        }
+    }
+}
+
+.modalStatus {
+    display: none;
+}

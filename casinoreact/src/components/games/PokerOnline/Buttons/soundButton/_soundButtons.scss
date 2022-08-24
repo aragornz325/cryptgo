@@ -1,0 +1,8 @@
+.musicButton {
+    z-index: 1000;
+
+    & svg {
+        font-size: 30px;
+        cursor: pointer;
+    }
+}

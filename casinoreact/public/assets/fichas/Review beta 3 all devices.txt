@@ -1,0 +1,89 @@
+iPad 9.7 6th generation
+landing: se ve bien
+
+registro: el milux de la izquierda se ve cualquier cosa
+resto ok
+
+feed: no puedo tocar el ver productos porque me queda abajo
+la navbar al usarlo en esta pantalla adapta las 3 lineas para los botones, habria que centrar la barra buscadora
+
+crear publicacion: cuando voy llegando a la parte de contacto, tengo que hacer scroll, la flecha desaperece, no es algo malo, peor si hay felchita antes, que siga, sino la sacamos del todo porque la gente quizas piensa que ahi termino
+
+interacciones: ok
+cambiar campo comprador por usuario
+una vez abierto interacciones, si tengo los notification dot y toco las 3 barritas para ir a otro lugar de la web, los dots quedan en la pantalla arriba del menu.
+
+
+iPhone 13:
+landing: se ve bien
+
+registro: el milux de la izquierda se ve cualquier cosa
+resto ok
+
+feed: no puedo tocar el ver productos porque me queda abajo
+la navbar al usarlo en esta pantalla adapta las 3 lineas para los botones, habria que centrar la barra buscadora
+
+crear publicacion: cuando voy llegando a la parte de contacto, tengo que hacer scroll, la flecha desaperece, no es algo malo, peor si hay felchita antes, que siga, sino la sacamos del todo porque la gente quizas piensa que ahi termino
+
+interacciones: ok
+cambiar campo comprador por usuario
+una vez abierto interacciones, si tengo los notification dot y toco las 3 barritas para ir a otro lugar de la web, los dots quedan en la pantalla arriba del menu.
+
+
+iPhone 6s:
+
+landing: navbar desaprece el logo de milux
+textos muy grandes, imagenes re minis
+
+registro: el texto de arriba de los campos que dice crea tu cuenta.. etc. sale cortado
+los botones de proveedor y comprador no quedan centrados con su texto interior
+
+feed: barra buscadora no aparece
+y pasa lo mismo con los botones de abajo del post, aca por ejemplo al igual que en el ipad se ven los de aceptar contraoferta y contactar, pero el ver productos no
+
+crear publicacion: parece ok
+
+interacciones: idem iphone 13
+
+resto parece ok
+
+Notebook 15.6" 1366x768 16:9
+Landing:
+Imagen de las categorias sigue siendo la que no se ve la "e" en etiquetas
+Responsive esta mas o menos, se ve todo muy grande, algunas cosas no entran en la pantalla
+En la pagina de ayuda la flechita para volver atras se superpone con la navbar
+
+Feed:
+Responsive no esta bien
+La categoria seleccionada y el ordenar por se interponen con el post
+Cuando despliego para ver productos se interpone con el texto del post
+Cuando voy a realizar una contraoferta tengo que borrar el numero que este puesto en los campos de cantidad y precio
+
+Crear publicacion:
+Si toco la flechita para seguir adelante con los pasos no avanza, sino que tengo que bajar yo con la barra de scroll
+cuando completo un campo, me hace bajar con el scroll hasta que aparece la flechita para recien poder seguir adelante
+
+Ayuda: idem landing
+FAQs si se puede hacer que si volver a tocar la flechita para desplegar que se cierre
+
+Interacciones: 
+No puedo ver la publicacion completa cuando me llega una contraoferta
+
+Notebook 14" 1920x1080 16:9
+responsive en general no se ve bien
+despues no seguimos testeando porque no tenia sentido
+
+otras cosas:
+cambiar el campo observaciones del post por "Notas"
+si se puede hacer unboton home con logo milux
+signo pesos en el campo precio de los posts no aparece, si se puede agregar
+me deja abrir imagen aunque este en gris
+condiciones de pago poner un desplegable que diga: contado, financiado y contraentrega
+plazo de entrega con opciones de 1 a 14 dias o 14+ 
+agregra al titulo del campo responsable de contacto: "(nombre)"
+bajar anadir producto al final y cambiar agregar por finalizar 
+me deja agregar productos vacios
+corregir mensaje antes de crear (signos de pregunta y mayuscula)
+se crea un hueco cuando scrolleas para arriba en la landing y esto no te deja tocar los botones de precio y ayuda hasta que no desaparece el hueco
+esto no se si es por el servidor, pero a veces volviendo poara atras con el navegador, flashea la web y se cae
+
