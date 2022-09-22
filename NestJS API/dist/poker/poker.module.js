@@ -10,19 +10,12 @@ exports.PokerModule = void 0;
 const common_1 = require("@nestjs/common");
 const poker_service_1 = require("./poker.service");
 const poker_controller_1 = require("./poker.controller");
-const poker_gateway_1 = require("./adapters/poker.gateway");
-const mongoose_1 = require("@nestjs/mongoose");
-const pokerRoom_schema_1 = require("./schemas/pokerRoom.schema");
-const user_schema_1 = require("../users/schemas/user.schema");
-const stats_module_1 = require("../stats/stats.module");
 let PokerModule = class PokerModule {
 };
 PokerModule = __decorate([
     (0, common_1.Module)({
-        imports: [stats_module_1.StatsModule, mongoose_1.MongooseModule.forFeature([{ name: 'PokerRoom', schema: pokerRoom_schema_1.PokerRoomSchema }]), mongoose_1.MongooseModule.forFeature([{ name: 'User', schema: user_schema_1.UserSchema }])],
-        providers: [poker_service_1.PokerService, poker_gateway_1.PokerGateway],
-        controllers: [poker_controller_1.PokerController],
-        exports: [poker_service_1.PokerService]
+        providers: [poker_service_1.PokerService],
+        controllers: [poker_controller_1.PokerController]
     })
 ], PokerModule);
 exports.PokerModule = PokerModule;

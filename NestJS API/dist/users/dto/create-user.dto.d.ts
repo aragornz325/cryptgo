@@ -29,4 +29,5 @@ export declare class UpdateUserDto {
     readonly phone: string;
     readonly status: boolean;
     readonly date: Date;
+    readonly balance: number;
 }

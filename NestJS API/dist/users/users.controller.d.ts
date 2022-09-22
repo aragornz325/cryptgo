@@ -11,5 +11,6 @@ export declare class UsersController {
     create(createUserDto: CreateUserDto): Promise<User>;
     delete(id: string): Promise<User>;
     update(id: string, updateUserDto: CreateUserDto): Promise<User>;
+    addCoins(id: string, body: any): Promise<any>;
     updateCoins(id: string, updateBJCoinsDto: UpdateCoinsDto): Promise<User>;
 }

@@ -1,4 +1,3 @@
-import { Bet } from 'src/blackjack/interfaces/bet.interface';
 export interface RouletteBet {
     number?: number;
     quarter?: any[];
@@ -10,7 +9,8 @@ export interface RouletteBet {
     doubleColumns?: any[];
     lessThanEighteen?: boolean;
     dozen?: number;
-    bet: Bet;
+    bet: number;
     type: string;
     won?: boolean;
+    winMultiplier?: number;
 }

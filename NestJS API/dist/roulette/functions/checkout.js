@@ -1,119 +1,83 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkOut = void 0;
-const addCoins_function_1 = require("../../poker-offline/functions/addCoins.function");
-const stats_service_1 = require("../../stats/stats.service");
-const user_interface_1 = require("../../users/interfaces/user.interface");
-const addCoins = async (user, _bet, multiplier) => {
-    const newBet = {
-        one: _bet.bet["one"] * multiplier,
-        five: _bet.bet["five"] * multiplier,
-        ten: _bet.bet["ten"] * multiplier,
-        twentyfive: _bet.bet["twentyfive"] * multiplier,
-        fifty: _bet.bet["fifty"] * multiplier,
-        hundred: _bet.bet["hundred"] * multiplier,
-        twohundred: _bet.bet["twohundred"] * multiplier,
-        fivehundred: _bet.bet["fivehundred"] * multiplier,
-        thousand: _bet.bet["thousand"] * multiplier
-    };
-    user.coins = (0, addCoins_function_1.addBetCoins)(user, newBet);
-    user.markModified('coins');
-    return newBet;
-};
 const checkOut = async (user, roulleteNumber, rouletteBets) => {
-    let stat = { one: 0, five: 0, ten: 0, twentyfive: 0, fifty: 0, hundred: 0, twohundred: 0, fivehundred: 0, thousand: 0 };
-    let newBets = await rouletteBets.map(async (_bet) => {
-        if (_bet.type == 'number') {
-            if (_bet.number == roulleteNumber.number) {
-                stat = await addCoins(user, _bet, 36);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'quarter') {
-            for (let i = 0; i < roulleteNumber.quarters.length; i++) {
-                if (arraysEqual(roulleteNumber.quarters[i], _bet.quarter)) {
-                    stat = await addCoins(user, _bet, 9);
-                    _bet.won = true;
+    const newBets = rouletteBets.map((bet) => {
+        bet.winMultiplier = 0;
+        switch (bet.type) {
+            case 'double':
+                roulleteNumber.doubles.forEach(double => {
+                    if (arraysEqual(double, bet.double)) {
+                        bet.winMultiplier = 18;
+                        bet.won = true;
+                    }
+                });
+                return bet;
+            case 'quarter':
+                roulleteNumber.quarters.forEach(quarter => {
+                    if (arraysEqual(quarter, bet.quarter)) {
+                        bet.winMultiplier = 9;
+                        bet.won = true;
+                    }
+                });
+                return bet;
+            case 'doubleColumns':
+                roulleteNumber.doubleColumns.forEach(doubleColumn => {
+                    if (arraysEqual(doubleColumn, bet.doubleColumns)) {
+                        bet.winMultiplier = 5;
+                        bet.won = true;
+                    }
+                });
+                return bet;
+            case 'number':
+                if (bet.number === roulleteNumber.number) {
+                    bet.winMultiplier = 36;
+                    bet.won = true;
                 }
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'double') {
-            for (let i = 0; i < roulleteNumber.doubles.length; i++) {
-                if (arraysEqual(roulleteNumber.doubles[i], _bet.double)) {
-                    stat = await addCoins(user, _bet, 18);
-                    _bet.won = true;
+                return bet;
+            case 'color':
+                if (roulleteNumber.color.toLowerCase() === bet.color.toLowerCase()) {
+                    bet.winMultiplier = 2;
+                    bet.won = true;
                 }
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'doubleColumns') {
-            for (let i = 0; i < roulleteNumber.doubleColumns.length; i++) {
-                if (arraysEqual(roulleteNumber.doubleColumns[i], _bet.doubleColumns)) {
-                    stat = await addCoins(user, _bet, 5);
-                    _bet.won = true;
+                return bet;
+            case 'isOdd':
+                if (roulleteNumber.isOdd === bet.isOdd) {
+                    bet.winMultiplier = 2;
+                    bet.won = true;
                 }
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'isOdd') {
-            if (roulleteNumber.isOdd == _bet.isOdd) {
-                stat = await addCoins(user, _bet, 2);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'color') {
-            if (roulleteNumber.color.toLowerCase() == _bet.color.toLowerCase()) {
-                stat = await addCoins(user, _bet, 2);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'row') {
-            if (roulleteNumber.row == _bet.row) {
-                stat = await addCoins(user, _bet, 3);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'column') {
-            if (roulleteNumber.column == _bet.column) {
-                stat = await addCoins(user, _bet, 2);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'lessThanEighteen') {
-            if (roulleteNumber.lessThanEighteen == _bet.lessThanEighteen) {
-                stat = await addCoins(user, _bet, 2);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else if (_bet.type == 'dozen') {
-            if (roulleteNumber.dozens == _bet.dozen) {
-                stat = await addCoins(user, _bet, 2);
-                _bet.won = true;
-            }
-            return _bet;
-        }
-        else {
-            _bet.won = false;
-            return _bet;
+                return bet;
+            case 'row':
+                if (roulleteNumber.row === bet.row) {
+                    bet.winMultiplier = 3;
+                    bet.won = true;
+                }
+                return bet;
+            case 'column':
+                if (roulleteNumber.column === bet.column) {
+                    bet.winMultiplier = 9;
+                    bet.won = true;
+                }
+                return bet;
+            case 'lessThanEighteen':
+                if (roulleteNumber.lessThanEighteen === bet.lessThanEighteen) {
+                    bet.winMultiplier = 2;
+                    bet.won = true;
+                }
+                return bet;
+            case 'dozen':
+                if (roulleteNumber.dozen === bet.dozen) {
+                    bet.winMultiplier = 3;
+                    bet.won = true;
+                }
+                return bet;
+            default:
+                return bet;
         }
     });
-    let verifyStat = false;
-    for (let property in stat) {
-        if (stat[property] !== 0) {
-            verifyStat = true;
-        }
-    }
-    if (!verifyStat) {
-        stat = undefined;
-    }
-    return { newBets, stat };
+    let wonAmount = 0;
+    newBets.forEach(bet => { user.balance += bet.bet * bet.winMultiplier; wonAmount += bet.bet * bet.winMultiplier; });
+    return { newBets, wonAmount };
 };
 exports.checkOut = checkOut;
 function arraysEqual(a, b) {

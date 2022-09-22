@@ -8,7 +8,9 @@ exports.PokerOfflineSchema = new mongoose.Schema({
         required: true
     },
     startBet: {},
-    bet: {},
+    bet: {
+        type: Number
+    },
     deck: {
         type: Array,
         required: true

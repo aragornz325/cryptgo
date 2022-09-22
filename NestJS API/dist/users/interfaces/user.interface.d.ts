@@ -19,5 +19,5 @@ export interface User {
         fivehundred: number;
         thousand: number;
     };
-    balance?: number;
+    balance: number;
 }

@@ -21,15 +21,15 @@ exports.BlackjackShema = new mongoose.Schema({
     },
     hasPair: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     userSplitted: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     canDouble: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     dealerHand: {
         type: Array,
@@ -37,10 +37,11 @@ exports.BlackjackShema = new mongoose.Schema({
     },
     deck: {
         type: Array,
+        required: true
     },
     currentHandValue: {
         type: Array,
-        required: true
+        default: [0, 0, 0]
     },
     dealerHandValue: {
         type: Number,
@@ -48,40 +49,38 @@ exports.BlackjackShema = new mongoose.Schema({
     },
     userIsBusted: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     userHasBlackjack: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     dealerHasBlackjack: {
-        type: Boolean,
-        required: true,
-        default: false
+        type: Array,
+        default: [false, false, false]
     },
     handStand: {
         type: Array
     },
     dealerWon: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     tie: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     userWon: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     userStand: {
         type: Array,
-        required: true,
+        default: [false, false, false]
     },
     dealerIsBusted: {
-        type: Boolean,
-        required: true,
-        default: false
+        type: Array,
+        default: [false, false, false]
     }
 });
 //# sourceMappingURL=blackjack.schema.js.map

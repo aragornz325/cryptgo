@@ -25,9 +25,7 @@ const stats_controller_1 = require("./stats/stats.controller");
 const stats_module_1 = require("./stats/stats.module");
 const feedback_controller_1 = require("./feedback/feedback.controller");
 const feedback_module_1 = require("./feedback/feedback.module");
-const poker_module_1 = require("./poker/poker.module");
 const orders_module_1 = require("./orders/orders.module");
-const orders_controller_1 = require("./orders/orders.controller");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,8 +39,7 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             stats_module_1.StatsModule,
             feedback_module_1.FeedbackModule,
-            poker_module_1.PokerModule,
-            orders_module_1.OrdersModule
+            orders_module_1.OrdersModule,
         ],
         controllers: [
             app_controller_1.AppController,
@@ -53,7 +50,6 @@ AppModule = __decorate([
             poker_offline_controller_1.PokerOfflineController,
             stats_controller_1.StatsController,
             feedback_controller_1.FeedbackController,
-            orders_controller_1.OrdersController
         ],
     })
 ], AppModule);

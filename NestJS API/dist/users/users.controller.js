@@ -42,6 +42,9 @@ let UsersController = class UsersController {
     async update(id, updateUserDto) {
         return this.usersService.update(id, updateUserDto);
     }
+    async addCoins(id, body) {
+        return this.usersService.addCoins(id, Number(body.coins));
+    }
     async updateCoins(id, updateBJCoinsDto) {
         return this.usersService.updateCoins(id, updateBJCoinsDto);
     }
@@ -87,6 +90,14 @@ __decorate([
     __metadata("design:paramtypes", [String, create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "update", null);
+__decorate([
+    (0, common_1.Put)('addCoins/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "addCoins", null);
 __decorate([
     (0, common_1.Put)('updateCoins/:id'),
     __param(0, (0, common_1.Param)('id')),

@@ -1,9 +1,8 @@
-import { Bet } from '../../blackjack/interfaces/bet.interface';
 export interface PokerOffline {
     id?: string;
     userId: string;
-    startBet?: Bet;
-    bet?: Bet;
+    startBet?: number;
+    bet?: number;
     dealerHand?: any[];
     currentHand?: any[];
     deck?: any[];

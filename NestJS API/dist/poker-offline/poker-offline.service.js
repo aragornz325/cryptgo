@@ -19,10 +19,9 @@ const mongoose_2 = require("mongoose");
 const bet_interface_1 = require("../blackjack/interfaces/bet.interface");
 const stats_service_1 = require("../stats/stats.service");
 const user_interface_1 = require("../users/interfaces/user.interface");
-const addCoins_function_1 = require("./functions/addCoins.function");
-const checkBets_function_1 = require("./functions/checkBets.function");
+const addBalance_function_1 = require("./functions/addBalance.function");
 const poker_functions_1 = require("./functions/poker.functions");
-const reverseCoins_function_1 = require("./functions/reverseCoins.function");
+const takeStartBet_function_1 = require("./functions/takeStartBet.function");
 const Deck = require('classic-deck');
 let PokerOfflineService = class PokerOfflineService {
     constructor(statsService, pokerOffline, users) {
@@ -42,9 +41,9 @@ let PokerOfflineService = class PokerOfflineService {
                 if (user == null) {
                     return { error: 'User not found' };
                 }
-                const check = (0, checkBets_function_1.checkBets)(user.coins, bet);
-                if (check && check.error) {
-                    return { error: check.error };
+                console.log(bet, user.balance);
+                if (user.balance < bet) {
+                    return { error: 'Not enough balance to play with this bet' };
                 }
                 const game = new this.pokerOffline();
                 const dealerHand = [deck[0], deck[1]];
@@ -61,9 +60,7 @@ let PokerOfflineService = class PokerOfflineService {
                 game.dealerHand = dealerHand;
                 game.currentHand = currenHand;
                 game.deck = deck;
-                user.coins = (0, addCoins_function_1.addCoins)(user, game, -1);
-                await this.statsService.create(user._id, bet, 'Poker', 'Initial Bet');
-                user.markModified('coins');
+                (0, addBalance_function_1.default)(user, game, -1);
                 await user.save();
                 await game.save();
                 let visibleGame = game;
@@ -105,17 +102,12 @@ let PokerOfflineService = class PokerOfflineService {
                     return { error: 'You already floped' };
                 }
                 let user = await this.users.findOne({ _id: userId });
-                game.bet = (0, addCoins_function_1.addBet)(game, 1);
-                game.markModified('bet');
-                const check = (0, checkBets_function_1.checkBets)(user.coins, game.bet);
-                if (check && check.error) {
-                    return { error: check.error };
+                if (user.balance < game.bet * 2) {
+                    return { error: 'Not enough balance to flop' };
                 }
-                await this.statsService.create(user._id, game.bet, 'Poker', 'Flop');
-                game.bet = (0, addCoins_function_1.addBet)(game, 1);
+                (0, addBalance_function_1.default)(user, game, -2);
+                game.bet += game.bet * 2;
                 game.markModified('bet');
-                user.coins = (0, addCoins_function_1.addCoins)(user, game, -2);
-                user.markModified('coins');
                 game.userFloped = true;
                 game.deckHand = [game.deck[0], game.deck[1], game.deck[2]];
                 game.deck.splice(0, 3);
@@ -139,55 +131,29 @@ let PokerOfflineService = class PokerOfflineService {
                     return { error: "You didn't floped" };
                 }
                 let user = await this.users.findOne({ _id: userId });
-                game.bet = (0, addCoins_function_1.addBet)(game, 1);
+                if (user.balance < game.startBet) {
+                    return { error: 'Not enough balance to bet' };
+                }
+                game.bet += game.startBet;
                 game.markModified('bet');
-                const check = (0, checkBets_function_1.checkBets)(user.coins, game.startBet);
-                if (check && check.error) {
-                    return { error: check.error };
-                }
-                if (game.deckHand.length == 3) {
-                    game.deckHand.push(game.deck[0]);
-                    game.deck.splice(0, 1);
-                    game.markModified('deckHand');
-                    game.markModified('deck');
-                    user.coins = (0, addCoins_function_1.addCoins)(user, game, -1);
-                    user.markModified('coins');
-                    await user.save();
-                    await this.statsService.create(user._id, game.startBet, 'Poker', 'Bet');
-                }
-                else if (game.deckHand.length == 4) {
-                    game.deckHand.push(game.deck[0]);
-                    game.deck.splice(0, 1);
-                    game.markModified('deckHand');
-                    game.markModified('deck');
-                    user.coins = (0, addCoins_function_1.addCoins)(user, game, -1);
-                    user.markModified('coins');
-                    await user.save();
-                    await this.statsService.create(user._id, game.startBet, 'Poker', 'Bet');
+                game.deckHand.push(game.deck[0]);
+                game.deck.splice(0, 1);
+                game.markModified('deckHand');
+                game.markModified('deck');
+                (0, takeStartBet_function_1.default)(user, game);
+                await user.save();
+                if (game.deckHand.length == 5) {
                     let results = (0, poker_functions_1.calculateHand)(game);
                     if (results.winner == 'user') {
                         game.userWon = true;
                         game.markModified('userWon');
-                        let wonAmount = game.bet;
-                        for (let property in wonAmount) {
-                            wonAmount[property] -= game.startBet[property];
-                            wonAmount[property] *= 2;
-                        }
-                        user.coins = (0, addCoins_function_1.addBetCoins)(user, wonAmount);
-                        user.markModified('coins');
+                        (0, addBalance_function_1.default)(user, game, 2);
                         await user.save();
-                        await this.statsService.create(user._id, (0, reverseCoins_function_1.reverseCoins)(wonAmount), 'Poker', 'User Won');
                     }
                     else if (results.winner == 'tie') {
                         game.tie = true;
-                        user.coins = (0, addCoins_function_1.addBetCoins)(user, game.bet);
-                        let wonAmount = game.bet;
-                        user.markModified('coins');
-                        for (let property in wonAmount) {
-                            wonAmount[property] -= game.startBet[property];
-                        }
+                        (0, addBalance_function_1.default)(user, game, 1);
                         await user.save();
-                        await this.statsService.create(user._id, (0, reverseCoins_function_1.reverseCoins)(wonAmount), 'Poker', 'Tie');
                     }
                     else {
                         game.dealerWon = true;
@@ -233,26 +199,13 @@ let PokerOfflineService = class PokerOfflineService {
                     if (results.winner == 'user') {
                         game.userWon = true;
                         game.markModified('userWon');
-                        let wonAmount = game.bet;
-                        for (let property in wonAmount) {
-                            wonAmount[property] -= game.startBet[property];
-                            wonAmount[property] *= 2;
-                        }
-                        user.coins = (0, addCoins_function_1.addBetCoins)(user, wonAmount);
-                        user.markModified('coins');
+                        (0, addBalance_function_1.default)(user, game, 2);
                         await user.save();
-                        await this.statsService.create(user._id, (0, reverseCoins_function_1.reverseCoins)(wonAmount), 'Poker', 'User Won');
                     }
                     else if (results.winner == 'tie') {
                         game.tie = true;
-                        user.coins = (0, addCoins_function_1.addBetCoins)(user, game.bet);
-                        let wonAmount = game.bet;
-                        user.markModified('coins');
-                        for (let property in wonAmount) {
-                            wonAmount[property] -= game.startBet[property];
-                        }
+                        (0, addBalance_function_1.default)(user, game, 1);
                         await user.save();
-                        await this.statsService.create(user._id, (0, reverseCoins_function_1.reverseCoins)(wonAmount), 'Poker', 'Tie');
                     }
                     else {
                         game.dealerWon = true;

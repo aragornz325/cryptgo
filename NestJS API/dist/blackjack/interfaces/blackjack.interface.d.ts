@@ -1,9 +1,8 @@
-import { Bet } from "./bet.interface";
 export interface Blackjack {
     id?: string;
     userId: string;
     games: any[];
-    bet?: Bet[];
+    bet?: Array<number>;
     currentHand?: any[];
     hasPair?: any[];
     canDouble?: any[];

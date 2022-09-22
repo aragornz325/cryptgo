@@ -53,7 +53,7 @@ let UsersService = class UsersService {
         return await this.users.findByIdAndUpdate(id, { coins: null }, { new: true });
     }
     async getBalances() {
-        const users = await this.users.find();
+        const users = await this.users.find({ _id: { $ne: '622b924c7d812bd7ee763160' } });
         const balances = await users.map(user => {
             let balance = 0;
             Object.keys(user.coins).map(key => {
@@ -90,7 +90,11 @@ let UsersService = class UsersService {
             });
             return [user.username, balance];
         });
-        return balances;
+        let total = 0;
+        balances.map(balance => {
+            return total += Number(balance[1]);
+        });
+        return [['TOTAL', total], ...balances];
     }
     async addCoins(id, coins) {
         console.log('info', id, coins);

@@ -22,14 +22,13 @@ let StatsService = class StatsService {
         this.stats = stats;
     }
     async findAll() {
-        const stats = await this.stats.find();
-        const earnings = await this.stats.aggregate([{
-                $group: {
-                    _id: { year: { $year: "$date" } },
-                    earnings: { $sum: '$winning' }
-                }
-            }]);
-        return { stats: stats.reverse(), earnings: earnings[0].earnings };
+        const newstats = await this.stats.find();
+        const stats = newstats.filter(stat => stat.userId !== '622b924c7d812bd7ee763160');
+        let earnings = 0;
+        stats.map(stat => {
+            return earnings += stat.winning;
+        });
+        return { stats: stats.reverse(), earnings };
     }
     async create(userId, coins, game, description) {
         let winning = (0, coinToNumber_function_1.coinToNumber)(coins);

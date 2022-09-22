@@ -10,8 +10,7 @@ async function bootstrap() {
     app.enableCors({
         origin: [
             'https://cryptgo.co',
-            'http://localhost:3000',
-            'http://localhost:3550',
+            'http://localhost:3000'
         ],
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -24,7 +23,6 @@ async function bootstrap() {
         proxy: true,
         name: 'crypgoUser',
         cookie: {
-            secure: true,
             maxAge: 3600000,
             sameSite: 'none',
             httpOnly: true

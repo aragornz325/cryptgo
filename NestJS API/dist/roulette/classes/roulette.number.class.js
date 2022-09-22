@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rouletteNumbers = exports.RouletteNumber = void 0;
 class RouletteNumber {
-    constructor(number, color, row, column, doubleColumns, isOdd, lessThanEighteen, dozens, doubles, quarters) {
+    constructor(number, color, row, column, doubleColumns, isOdd, lessThanEighteen, dozen, doubles, quarters) {
         this.number = number;
         this.color = color;
         this.row = row;
@@ -10,7 +10,7 @@ class RouletteNumber {
         this.doubleColumns = doubleColumns;
         this.isOdd = isOdd;
         this.lessThanEighteen = lessThanEighteen;
-        this.dozens = dozens;
+        this.dozen = dozen;
         this.doubles = doubles;
         this.quarters = quarters;
         this.number = number;
@@ -21,7 +21,7 @@ class RouletteNumber {
         this.color = color;
         this.isOdd = isOdd;
         this.lessThanEighteen = lessThanEighteen;
-        this.dozens = dozens;
+        this.dozen = dozen;
         this.doubles = doubles;
         this.quarters = quarters;
     }
